@@ -3,22 +3,40 @@
 #include <ctype.h>
 #include <string.h>
 #include "pendue.h"
+#include <time.h>
 
 int main()
 {
 	char letter;	
-	char word[] = "MARRON";
-	int letterfound[6] = {0};
+	char word[100] = {0};
+	int *letterfound = NULL;
 	int i;
 	int lives;
+	int wordsize;
 
+	wordsize = 0;		
 	i = 0;
 	lives = 10;	
-	while (lives > 0 && !win(letterfound))
+	if (!pickword(word))
+		{
+		exit (0);
+		}
+	wordsize = strlen(word);
+	letterfound = malloc(wordsize * sizeof(int));
+	if (letterfound == NULL)
+	{	
+		exit(0);
+	}	
+	while (i < wordsize)
+	{
+		letterfound[i] = 0;
+		i++;
+	}		
+	while (lives > 0 && !win(letterfound, wordsize))
 	{
 		printf("\nYou still have %d more attempt\n", lives);
 		printf("Find the word\n");
-		while (i < 6)
+		while (i < wordsize)
 		{
 			 	
 			if (letterfound[i])
@@ -39,7 +57,7 @@ int main()
 		}
 		i = 0;
 	}
-	if (win(letterfound))
+	if (win(letterfound, wordsize))
 	{
 		 printf("\nWin ! The word was %s\n", word);
 	}
