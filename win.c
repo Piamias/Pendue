@@ -14,9 +14,6 @@ int win(int letterfound[])
 	{
 		if (letterfound[i] == 0)
 			playerWin = 0;
-		else
-		{
-		}
 		i++;
 	}
 	return playerWin;
